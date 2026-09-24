@@ -1,0 +1,36 @@
+{% extends "admin/base_site.html" %}
+{% load unfold %}
+
+{% block content %}
+<div class="max-w-3xl">
+    {% component "unfold/components/card.html" with title=title %}
+        <p class="mb-4 text-sm text-base-500 dark:text-base-400">
+            {{ total }} item{{ total|pluralize }} across the site still need a real photo. Click a row to jump
+            straight to that list, filtered to just the ones missing one.
+        </p>
+
+        <table class="mn-report-table">
+            <thead>
+                <tr>
+                    <th>Section</th>
+                    <th>Missing photos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in report %}
+                <tr>
+                    <td><a href="{{ row.url }}">{{ row.label }}</a></td>
+                    <td>
+                        {% if row.count == 0 %}
+                            <span class="mn-badge-ok">All set</span>
+                        {% else %}
+                            <span class="mn-badge-warn">{{ row.count }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endcomponent %}
+</div>
+{% endblock %}

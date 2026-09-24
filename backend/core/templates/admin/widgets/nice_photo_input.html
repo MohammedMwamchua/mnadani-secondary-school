@@ -1,0 +1,22 @@
+<div class="mn-photo-widget">
+  {% if widget.is_initial %}
+    <div class="mn-photo-widget__current">
+      <img src="{{ widget.value.url }}" alt="" class="mn-photo-widget__img">
+      {% if not widget.required %}
+        <label class="mn-photo-widget__clear">
+          <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"{% if widget.attrs.disabled %} disabled{% endif %}>
+          Remove this photo
+        </label>
+      {% endif %}
+    </div>
+  {% endif %}
+  <label class="mn-photo-widget__dropzone" for="{{ widget.attrs.id }}">
+    <svg class="mn-photo-widget__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 16V4M12 4l-4 4M12 4l4 4" />
+      <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+    </svg>
+    <span class="mn-photo-widget__label">{% if widget.is_initial %}Replace this photo{% else %}Click to upload a photo{% endif %}</span>
+    <span class="mn-photo-widget__hint">JPG, PNG or WEBP — up to 5MB</span>
+    <input type="{{ widget.type }}" name="{{ widget.name }}" class="mn-photo-widget__input"{% include "django/forms/widgets/attrs.html" %}>
+  </label>
+</div>
