@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from history.models import Headteacher, HistoryEvent, NotableTeacher
+from history.models import Headteacher, HistoryEvent
 
 TIMELINE = [
     {
@@ -49,29 +49,8 @@ HEADTEACHERS = [
     },
 ]
 
-NOTABLE_TEACHERS = [
-    {
-        "name": "Teacher name",
-        "subject": "Subject",
-        "years": "Years",
-        "story": "Placeholder — add what this teacher was known for and their years at the school.",
-    },
-    {
-        "name": "Teacher name",
-        "subject": "Subject",
-        "years": "Years",
-        "story": "Placeholder — add what this teacher was known for and their years at the school.",
-    },
-    {
-        "name": "Teacher name",
-        "subject": "Subject",
-        "years": "Years",
-        "story": "Placeholder — add what this teacher was known for and their years at the school.",
-    },
-]
-
 class Command(BaseCommand):
-    help = "Seed starter Timeline / Headteacher / Notable Teacher rows for the History page."
+    help = "Seed starter Timeline / Headteacher rows for the History page."
 
     def handle(self, *args, **options):
         created = 0
@@ -92,16 +71,6 @@ class Command(BaseCommand):
                     "period_end": row["period_end"],
                     "story": row["story"],
                     "order": i,
-                },
-            )
-            created += was_created
-
-        for i, row in enumerate(NOTABLE_TEACHERS):
-            _, was_created = NotableTeacher.objects.get_or_create(
-                order=i,
-                defaults={
-                    "name": row["name"], "subject": row["subject"],
-                    "years": row["years"], "story": row["story"],
                 },
             )
             created += was_created

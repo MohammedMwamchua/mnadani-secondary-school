@@ -21,11 +21,7 @@ pip install -r requirements.txt
 
 python manage.py migrate
 python manage.py seed_roles          # creates the Editor / News Writer / Alumni Manager groups
-python manage.py seed_history        # starter timeline/headteacher/notable-teacher rows
-python manage.py seed_awards         # starter Academics "Awards & honours" rows
-python manage.py seed_student_awards # starter Student Life "Achievements" rows
-python manage.py seed_news           # starter News posts
-python manage.py seed_alumni         # starter Alumni rows (one marked Featured, as a demo)
+python manage.py seed_history        # starter timeline/headteacher rows
 python manage.py seed_gallery        # one empty album per Gallery category
 python manage.py seed_site_info      # School Information singleton (vision, motto, address, signboard photo...)
 python manage.py seed_quick_links    # Home page's 3 Quick Link cards
@@ -165,17 +161,13 @@ before the admin panel has real content. Every admin-registered model now
 has a real, working place on the live site — nothing in the admin panel is
 disconnected.
 
-Run these once to fill each app with starter/placeholder rows (matching
-the text the old static pages used, using the school's real confirmed
-facts where known) so nothing is empty on a fresh database — replace them
-with real content from the admin panel whenever ready:
+Run these once on a fresh database to fill in starter content, using the
+school's real confirmed facts. News, awards, notable teachers and alumni
+have no starter rows — add those from the admin panel; until then, those
+sections show a short "coming soon" message:
 
 ```bash
-python manage.py seed_history          # History: timeline, headteachers, notable teachers
-python manage.py seed_awards           # Academics: Awards & honours
-python manage.py seed_student_awards   # Student Life: Achievements
-python manage.py seed_news             # News posts (staggered dates, so the newest shows as top story)
-python manage.py seed_alumni           # Alumni rows (one marked Featured)
+python manage.py seed_history          # History: timeline and headteachers
 python manage.py seed_gallery          # One empty album per Gallery category
 python manage.py seed_site_info        # School Information singleton
 python manage.py seed_quick_links      # Home page's Quick Link cards
