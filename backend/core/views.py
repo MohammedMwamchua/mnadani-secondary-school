@@ -1,5 +1,6 @@
 from rest_framework import generics, mixins, viewsets
 from rest_framework.permissions import AllowAny
+from rest_framework.throttling import ScopedRateThrottle
 
 from .models import ContactMessage, HomeBannerSlide, QuickLinkCard, SiteInfo
 from .serializers import (
@@ -30,4 +31,6 @@ class QuickLinkCardViewSet(viewsets.ReadOnlyModelViewSet):
 class ContactMessageViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = ContactMessageSerializer
     permission_classes = [AllowAny]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "contact"
     queryset = ContactMessage.objects.none()

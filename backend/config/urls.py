@@ -6,8 +6,8 @@ from django.urls import include, path
 from core.reports import missing_photos_report
 
 urlpatterns = [
-    path("admin/reports/missing-photos/", missing_photos_report, name="missing_photos_report"),
-    path("admin/", admin.site.urls),
+    path(f"{settings.ADMIN_URL}reports/missing-photos/", missing_photos_report, name="missing_photos_report"),
+    path(settings.ADMIN_URL, admin.site.urls),
     path("api/", include("core.urls")),
     path("api/", include("news.urls")),
     path("api/", include("history.urls")),

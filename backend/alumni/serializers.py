@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from core.validators import validate_image_file
+
 from .models import Alumnus
 
 class AlumnusSerializer(serializers.ModelSerializer):
@@ -14,7 +16,8 @@ class AlumnusSerializer(serializers.ModelSerializer):
 
 class AlumnusSubmissionSerializer(serializers.ModelSerializer):
 
-    photo = serializers.ImageField(required=True)
+    # Redeclaring the field drops the model's validators, so they must be repeated here.
+    photo = serializers.ImageField(required=True, validators=[validate_image_file])
 
     class Meta:
         model = Alumnus
