@@ -1,7 +1,7 @@
 from django.db import models
 
 from .imaging import shrink_image_field
-from .validators import validate_image_file
+from .validators import parse_coordinates, validate_image_file, validate_map_coordinates
 
 class TimeStamped(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -36,6 +36,15 @@ class SiteInfo(models.Model):
     phone = models.CharField(max_length=40, blank=True)
     office_hours = models.CharField(max_length=200, blank=True)
     administered_by = models.CharField(max_length=200, blank=True, default="Dodoma City Council")
+    map_coordinates = models.CharField(
+        max_length=60,
+        blank=True,
+        validators=[validate_map_coordinates],
+        help_text=(
+            "The school's exact spot, for the map on the Contact page. In Google Maps, press and hold "
+            '(or right-click) on the school and copy the two numbers shown, e.g. "-6.13834, 35.74642".'
+        ),
+    )
 
     entrance_signboard_photo = models.ImageField(
         upload_to="site/", blank=True, null=True, validators=[validate_image_file]
@@ -47,6 +56,11 @@ class SiteInfo(models.Model):
 
     def __str__(self):
         return self.school_name
+
+    @property
+    def map_location(self):
+        coords = parse_coordinates(self.map_coordinates)
+        return {"lat": coords[0], "lng": coords[1]} if coords else None
 
     def save(self, *args, **kwargs):
         self.pk = 1

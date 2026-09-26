@@ -3,13 +3,15 @@ from rest_framework import serializers
 from .models import ContactMessage, HomeBannerSlide, QuickLinkCard, SiteInfo
 
 class SiteInfoSerializer(serializers.ModelSerializer):
+    map_location = serializers.ReadOnlyField()
+
     class Meta:
         model = SiteInfo
         fields = [
             "school_name", "vision", "motto", "mission", "introduction", "headteacher_message",
             "necta_centre_number", "founded_year", "school_type",
             "address", "po_box", "email", "phone", "office_hours", "administered_by",
-            "entrance_signboard_photo",
+            "entrance_signboard_photo", "map_location",
         ]
 
 class HomeBannerSlideSerializer(serializers.ModelSerializer):

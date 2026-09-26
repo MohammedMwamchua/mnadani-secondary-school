@@ -5,8 +5,8 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from .models import ContactMessage
-from .validators import validate_video_file
+from .models import ContactMessage, SiteInfo
+from .validators import validate_map_coordinates, validate_video_file
 
 LOCMEM_CACHE = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 CONTACT_URL = "/api/contact-messages/"
@@ -79,3 +79,29 @@ class VideoValidatorTests(TestCase):
     def test_accepts_real_webm_signature(self):
         webm = SimpleUploadedFile("clip.webm", b"\x1a\x45\xdf\xa3" + b"\x00" * 64)
         validate_video_file(webm)
+
+
+class MapCoordinatesTests(TestCase):
+    def test_accepts_coordinates_copied_from_google_maps(self):
+        validate_map_coordinates("-6.13834, 35.74642")
+        validate_map_coordinates("-6.13834,35.74642")
+
+    def test_rejects_swapped_numbers_with_a_helpful_message(self):
+        with self.assertRaisesMessage(ValidationError, "swapped"):
+            validate_map_coordinates("35.74642, -6.13834")
+
+    def test_rejects_places_outside_tanzania(self):
+        with self.assertRaisesMessage(ValidationError, "aren't in Tanzania"):
+            validate_map_coordinates("51.5072, -0.1276")
+
+    def test_rejects_malformed_input(self):
+        for bad in ["Dodoma", "6°08'18\"S 35°44'47\"E", "-6.1"]:
+            with self.assertRaises(ValidationError):
+                validate_map_coordinates(bad)
+
+    def test_site_info_api_exposes_map_location(self):
+        info = SiteInfo.load()
+        self.assertIsNone(self.client.get("/api/site-info/").json()["map_location"])
+        info.map_coordinates = "-6.13834, 35.74642"
+        info.save()
+        self.assertEqual(self.client.get("/api/site-info/").json()["map_location"], {"lat": -6.13834, "lng": 35.74642})

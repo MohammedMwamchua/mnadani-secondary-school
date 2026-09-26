@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { MapPin, Mail, Phone, Award, Users, ImageOff, User, MessageSquare, Send, Loader2, CheckCircle2, AlertCircle, Route } from "lucide-react";
+import { MapPin, Mail, Phone, Award, Users, ImageOff, User, MessageSquare, Send, Loader2, CheckCircle2, AlertCircle, Route, Navigation, ExternalLink } from "lucide-react";
 import { C, serif } from "../config/theme";
 import { Card, Section, PageHero, Button, PlaceholderNote } from "../components/ui";
 import { useFetch } from "../lib/useFetch";
 import { fetchSiteInfo, submitContactMessage } from "../lib/api";
+import { schoolMapLinks } from "../lib/maps";
+
+const EXTERNAL = { target: "_blank", rel: "noopener noreferrer" };
 
 const fieldClass =
   "w-full pl-10 pr-4 py-3 rounded-lg text-sm bg-[#F7FBFE] border border-[#D6E7F2] placeholder:text-[#8199A8] " +
@@ -39,6 +42,7 @@ function Signboard({ src }) {
 export default function Contact() {
   const site = useFetch(fetchSiteInfo);
   const info = site.data;
+  const map = schoolMapLinks(info);
 
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [status, setStatus] = useState("idle");
@@ -103,6 +107,14 @@ export default function Contact() {
             >
               <Route size={13} /> Off Singida Road
             </div>
+            <div className="flex flex-wrap gap-3 mt-5">
+              <Button href={map.view} variant="primary" className="w-full sm:w-auto" {...EXTERNAL}>
+                <MapPin size={16} /> View on map
+              </Button>
+              <Button href={map.directions} variant="secondary" className="w-full sm:w-auto" {...EXTERNAL}>
+                <Navigation size={16} /> Get directions
+              </Button>
+            </div>
           </div>
         </div>
       </Section>
@@ -147,6 +159,28 @@ export default function Contact() {
                 </div>
               );
 
+              if (r.label === "Address") {
+                return (
+                  <a
+                    key={r.label}
+                    href={map.view}
+                    {...EXTERNAL}
+                    className="block -mx-2 px-2 py-1 rounded-lg transition-colors duration-200 hover:bg-[#EEF7FC]"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: C.blueTint }}>
+                        <Icon size={17} color={C.blueDeep} />
+                      </div>
+                      <div className="min-w-0">
+                        {content}
+                        <div className="flex items-center gap-1 text-xs font-semibold mt-1" style={{ color: C.blue }}>
+                          View on map <ExternalLink size={12} />
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                );
+              }
               if (r.label === "Email") {
                 return (
                   <a

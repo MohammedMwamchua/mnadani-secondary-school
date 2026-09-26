@@ -4,7 +4,7 @@ import { Info, Trophy } from "lucide-react";
 import { C, serif } from "../config/theme";
 import { AlbumLightbox, ViewPhotosButton } from "./Albums";
 
-export function Button({ children, variant = "primary", to, className = "", ...props }) {
+export function Button({ children, variant = "primary", to, href, className = "", ...props }) {
   const base =
     "inline-flex items-center justify-center gap-2 rounded-[10px] font-semibold text-sm px-6 py-3 " +
     "transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 " +
@@ -25,6 +25,13 @@ export function Button({ children, variant = "primary", to, className = "", ...p
       <Link to={to} className={classes} style={style} {...props}>
         {children}
       </Link>
+    );
+  }
+  if (href) {
+    return (
+      <a href={href} className={classes} style={style} {...props}>
+        {children}
+      </a>
     );
   }
   return (

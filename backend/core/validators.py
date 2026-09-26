@@ -1,4 +1,5 @@
 import os
+import re
 
 from django.core.exceptions import ValidationError
 from PIL import Image
@@ -13,6 +14,34 @@ ALLOWED_VIDEO_EXTENSIONS = {".mp4", ".mov", ".webm"}
 MAX_VIDEO_SIZE_BYTES = 50 * 1024 * 1024
 WEBM_SIGNATURE = b"\x1a\x45\xdf\xa3"
 QUICKTIME_ATOMS = {b"ftyp", b"moov", b"mdat", b"wide", b"free", b"skip", b"pnot"}
+
+
+COORDINATES_RE = re.compile(r"^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$")
+TANZANIA_LAT = (-12.0, -0.9)
+TANZANIA_LNG = (29.0, 40.5)
+
+
+def parse_coordinates(value):
+    match = COORDINATES_RE.match(value or "")
+    if not match:
+        return None
+    return float(match.group(1)), float(match.group(2))
+
+
+def _in_tanzania(lat, lng):
+    return TANZANIA_LAT[0] <= lat <= TANZANIA_LAT[1] and TANZANIA_LNG[0] <= lng <= TANZANIA_LNG[1]
+
+
+def validate_map_coordinates(value):
+    coords = parse_coordinates(value)
+    if coords is None:
+        raise ValidationError('Enter the two numbers from Google Maps separated by a comma, e.g. "-6.13834, 35.74642".')
+    lat, lng = coords
+    if _in_tanzania(lat, lng):
+        return
+    if _in_tanzania(lng, lat):
+        raise ValidationError("The two numbers look swapped — the first one should be the negative number (latitude).")
+    raise ValidationError("These coordinates aren't in Tanzania. Copy them again from Google Maps.")
 
 
 def _is_new_upload(file):

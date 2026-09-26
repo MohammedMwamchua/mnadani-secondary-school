@@ -10,7 +10,7 @@ class SiteInfoAdmin(PhotoPreviewMixin, ModelAdmin):
     fieldsets = (
         ("Identity", {"fields": ("school_name", "necta_centre_number", "founded_year", "school_type")}),
         ("Vision, motto & mission", {"fields": ("vision", "motto", "mission", "introduction", "headteacher_message")}),
-        ("Contact & location", {"fields": ("address", "po_box", "email", "phone", "office_hours", "administered_by", "entrance_signboard_photo")}),
+        ("Contact & location", {"fields": ("address", "po_box", "email", "phone", "office_hours", "administered_by", "map_coordinates", "entrance_signboard_photo")}),
     )
 
     def has_add_permission(self, request):

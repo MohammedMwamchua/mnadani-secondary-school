@@ -136,6 +136,7 @@ export async function fetchSiteInfo() {
     officeHours: s.office_hours,
     administeredBy: s.administered_by,
     signboardPhoto: s.entrance_signboard_photo,
+    mapLocation: s.map_location,
   };
 }
 
