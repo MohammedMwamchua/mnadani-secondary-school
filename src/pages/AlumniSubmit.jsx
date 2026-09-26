@@ -103,7 +103,6 @@ export default function AlumniSubmit() {
   return (
     <>
       <PageHero
-        eyebrow="Alumni"
         title="Share your story with Mnadani."
         lead="Tell us where life has taken you since leaving Mnadani — it's reviewed by the school before it appears on the Alumni page, so nothing goes live without a check first."
       />
@@ -111,7 +110,7 @@ export default function AlumniSubmit() {
       <Section>
         <Link
           to={pathFor("alumni")}
-          className="inline-flex items-center gap-1.5 text-sm font-semibold mb-6 transition-colors duration-200 hover:text-[#124F80]"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold py-1 -my-1 mb-5 transition-colors duration-200 hover:text-[#124F80]"
           style={{ color: C.blueDeep }}
         >
           <ArrowLeft size={15} /> Back to Alumni
@@ -133,12 +132,12 @@ export default function AlumniSubmit() {
                   <button
                     type="button"
                     onClick={resetForm}
-                    className="text-sm font-semibold transition-colors duration-200 hover:underline"
+                    className="text-sm font-semibold py-2 -my-2 transition-colors duration-200 hover:underline"
                     style={{ color: C.blueDeep }}
                   >
                     Submit another story
                   </button>
-                  <Link to={pathFor("alumni")} className="text-sm font-semibold transition-colors duration-200 hover:underline" style={{ color: C.blueDeep }}>
+                  <Link to={pathFor("alumni")} className="text-sm font-semibold py-2 -my-2 transition-colors duration-200 hover:underline" style={{ color: C.blueDeep }}>
                     Back to Alumni
                   </Link>
                 </div>

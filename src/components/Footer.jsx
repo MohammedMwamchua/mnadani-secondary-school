@@ -33,7 +33,7 @@ export default function Footer() {
                 <Link
                   key={id}
                   to={pathFor(id)}
-                  className="block text-sm mb-2.5 text-left transition-colors duration-200 hover:text-white"
+                  className="block text-sm py-1.5 mb-1 text-left transition-colors duration-200 hover:text-white"
                   style={{ color: "rgba(255,255,255,0.68)" }}
                 >
                   {NAV.find((n) => n.id === id)?.label}
@@ -44,12 +44,12 @@ export default function Footer() {
 
           <div>
             <h4 className="text-white text-xs font-semibold mb-4 tracking-wide uppercase">Contact</h4>
-            <div className="text-sm mb-2.5" style={{ color: "rgba(255,255,255,0.68)" }}>Bochela, Nkuhungu, Dodoma</div>
-            <div className="text-sm mb-2.5" style={{ color: "rgba(255,255,255,0.68)" }}>P.O. Box 3399, Dodoma</div>
-            <div className="text-sm mb-2.5" style={{ color: "rgba(255,255,255,0.68)" }}>NECTA Centre: S2732</div>
+            <div className="text-sm py-1.5 mb-1" style={{ color: "rgba(255,255,255,0.68)" }}>Bochela, Nkuhungu, Dodoma</div>
+            <div className="text-sm py-1.5 mb-1" style={{ color: "rgba(255,255,255,0.68)" }}>P.O. Box 3399, Dodoma</div>
+            <div className="text-sm py-1.5 mb-1" style={{ color: "rgba(255,255,255,0.68)" }}>NECTA Centre: S2732</div>
             <a
               href="mailto:info@mnadanisecondary.sc.tz"
-              className="block text-sm mb-2.5 transition-colors duration-200 hover:text-white"
+              className="block text-sm py-1.5 mb-1 transition-colors duration-200 hover:text-white"
               style={{ color: "rgba(255,255,255,0.68)" }}
             >
               info@mnadanisecondary.sc.tz

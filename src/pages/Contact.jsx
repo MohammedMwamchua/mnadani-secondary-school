@@ -83,7 +83,7 @@ export default function Contact() {
 
   return (
     <>
-      <PageHero eyebrow="Contact" title="Get in touch with Mnadani Secondary School." />
+      <PageHero title="Get in touch with Mnadani Secondary School." />
 
       <Section>
         <div
@@ -232,7 +232,7 @@ export default function Contact() {
                   <button
                     type="button"
                     onClick={resetForm}
-                    className="mt-5 text-sm font-semibold transition-colors duration-200 hover:underline"
+                    className="mt-5 text-sm font-semibold py-2 -my-2 transition-colors duration-200 hover:underline"
                     style={{ color: C.blueDeep }}
                   >
                     Send another message

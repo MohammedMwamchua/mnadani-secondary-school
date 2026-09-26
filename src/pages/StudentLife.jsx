@@ -83,7 +83,10 @@ export default function StudentLife() {
 
   return (
     <>
-      <PageHero title="More than a classroom." lead="Clubs, sports, and activities that round out the school day." />
+      <PageHero
+        title="Building character beyond the classroom."
+        lead="Clubs, sports, and cultural activities that build teamwork, confidence, and school pride — with recognition for the students and teams who represent Mnadani well."
+      />
       <Section kicker="Clubs & activities" title="What students get involved in">
         {clubs.loading && <CardsSkeleton />}
 
