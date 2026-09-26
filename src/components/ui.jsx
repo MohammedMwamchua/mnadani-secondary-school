@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Info } from "lucide-react";
+import { Info, Trophy } from "lucide-react";
 import { C, serif } from "../config/theme";
+import { AlbumLightbox, ViewPhotosButton } from "./Albums";
 
 export function Button({ children, variant = "primary", to, className = "", ...props }) {
   const base =
@@ -254,9 +255,20 @@ export function PlaceholderNote({ children }) {
   );
 }
 
-export function AwardCard({ title, meta, body, image }) {
+export function AwardCard({ title, meta, body, image, extraPhotos = [] }) {
   const [broken, setBroken] = useState(false);
+  const [viewing, setViewing] = useState(false);
   const showImage = Boolean(image) && !broken;
+  const allPhotos = [...(showImage ? [{ id: "cover", src: image, caption: "" }] : []), ...extraPhotos];
+
+  const photoViewer = extraPhotos.length > 0 && (
+    <>
+      <ViewPhotosButton count={allPhotos.length} onClick={() => setViewing(true)} />
+      {viewing && (
+        <AlbumLightbox album={{ name: title, icon: Trophy, photos: allPhotos }} onClose={() => setViewing(false)} />
+      )}
+    </>
+  );
 
   const TrophyIcon = ({ size = 18 }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={C.blueDeep} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
@@ -282,6 +294,7 @@ export function AwardCard({ title, meta, body, image }) {
           <div className="font-semibold text-[15px]">{title}</div>
           <div className="text-xs mt-0.5" style={{ color: C.inkSoft }}>{meta}</div>
           <div className="text-sm mt-1.5" style={{ color: C.inkSoft }}>{body}</div>
+          {photoViewer}
         </div>
       </div>
     );
@@ -299,6 +312,7 @@ export function AwardCard({ title, meta, body, image }) {
         <div className="font-semibold text-[15px]">{title}</div>
         <div className="text-xs mt-0.5" style={{ color: C.inkSoft }}>{meta}</div>
         <div className="text-sm mt-1.5" style={{ color: C.inkSoft }}>{body}</div>
+        {photoViewer}
       </div>
     </div>
   );

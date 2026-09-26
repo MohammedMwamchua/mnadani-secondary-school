@@ -162,7 +162,7 @@ export default function Academics() {
         {!awards.loading && !awards.error && awards.data.length > 0 && (
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
             {awards.data.map((a) => (
-              <AwardCard key={a.id} title={a.title} meta={a.meta} body={a.body} image={a.image} />
+              <AwardCard key={a.id} title={a.title} meta={a.meta} body={a.body} image={a.image} extraPhotos={a.extraPhotos} />
             ))}
           </div>
         )}

@@ -14,6 +14,10 @@ async function getOne(path) {
   return res.json();
 }
 
+function mapPhotos(photos) {
+  return (photos ?? []).map((p) => ({ id: p.id, src: p.image, caption: p.caption }));
+}
+
 export async function fetchHistoryEvents() {
   const rows = await getList("history-events");
   return rows.map((e) => ({ id: e.id, mark: e.year, title: e.title, body: e.description, photo: e.photo }));
@@ -35,7 +39,10 @@ export async function fetchNotableTeachers() {
 
 export async function fetchAwards(category) {
   const rows = await getList("awards", { category });
-  return rows.map((a) => ({ id: a.id, title: a.title, meta: a.meta, body: a.explanation, image: a.photo }));
+  return rows.map((a) => ({
+    id: a.id, title: a.title, meta: a.meta, body: a.explanation, image: a.photo,
+    extraPhotos: mapPhotos(a.extra_photos),
+  }));
 }
 
 export async function fetchNewsPosts(category) {
@@ -78,7 +85,7 @@ export async function fetchGalleryAlbums(category) {
     cover: a.cover_photo,
     photoCount: a.photo_count,
     videoCount: a.video_count,
-    photos: (a.photos ?? []).map((p) => ({ id: p.id, src: p.image, caption: p.caption })),
+    photos: mapPhotos(a.photos),
     videos: (a.videos ?? []).map((v) => ({ id: v.id, src: v.video, caption: v.caption })),
   }));
 }
@@ -152,6 +159,7 @@ export async function fetchClubActivities() {
   return rows.map((c) => ({
     id: c.id, tag: c.tag, title: c.title, body: c.description,
     achievements: c.achievements, photo: c.cover_photo,
+    extraPhotos: mapPhotos(c.extra_photos),
   }));
 }
 

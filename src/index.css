@@ -31,3 +31,7 @@ button {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+html:has(dialog[open]:modal) {
+  overflow: hidden;
+}
