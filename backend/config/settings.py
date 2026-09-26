@@ -5,6 +5,7 @@ from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 from django.templatetags.static import static
 from django.urls import reverse_lazy
+from django.utils.text import format_lazy
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -261,13 +262,24 @@ UNFOLD = {
                 "title": "Academics",
                 "items": [
                     {"title": "Subjects", "icon": "menu_book", "link": reverse_lazy("admin:academics_subject_changelist")},
-                    {"title": "Awards & honours", "icon": "military_tech", "link": reverse_lazy("admin:academics_award_changelist")},
+                    {
+                        "title": "Awards & honours",
+                        "icon": "military_tech",
+                        "link": format_lazy("{}?category__exact=academic", reverse_lazy("admin:academics_award_changelist")),
+                        "active": "core.admin_nav.academic_awards_active",
+                    },
                 ],
             },
             {
                 "title": "Student life",
                 "items": [
                     {"title": "Clubs & activities", "icon": "sports_soccer", "link": reverse_lazy("admin:studentlife_clubactivity_changelist")},
+                    {
+                        "title": "Student achievements",
+                        "icon": "emoji_events",
+                        "link": format_lazy("{}?category__exact=student", reverse_lazy("admin:academics_award_changelist")),
+                        "active": "core.admin_nav.student_awards_active",
+                    },
                 ],
             },
             {

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.http import QueryDict
 from unfold.admin import ModelAdmin, TabularInline
 
 from core.admin_mixins import PhotoPreviewMixin, missing_photo_filter
@@ -29,3 +30,10 @@ class AwardAdmin(PhotoPreviewMixin, ModelAdmin):
     list_filter = ("category", missing_photo_filter("photo"))
     search_fields = ("title", "meta", "explanation")
     inlines = [AwardPhotoInline]
+
+    def get_changeform_initial_data(self, request):
+        initial = super().get_changeform_initial_data(request)
+        filters = QueryDict(request.GET.get("_changelist_filters", ""))
+        if "category__exact" in filters:
+            initial.setdefault("category", filters["category__exact"])
+        return initial
