@@ -170,10 +170,6 @@ export default function Home() {
       <section className="pt-14 pb-14 sm:pt-20 sm:pb-20 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 md:gap-12 items-center">
           <div>
-            <div className="flex items-center gap-2 text-sm font-semibold mb-5" style={{ color: C.blueDeep }}>
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: C.gold }} />
-              Government Day Secondary School · Bochela, Nkuhungu
-            </div>
             <h1
               className="font-semibold leading-tight text-[clamp(2.1rem,4.5vw+0.5rem,3rem)]"
               style={serif}

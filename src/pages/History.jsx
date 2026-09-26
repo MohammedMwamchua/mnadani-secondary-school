@@ -110,7 +110,6 @@ export default function History() {
   return (
     <>
       <PageHero
-        eyebrow="Our story"
         title="Nearly two decades of teaching Bochela's students."
         lead="From a newly registered day school in 2007 to a community fixture in Nkuhungu — this is how Mnadani has grown."
       />
