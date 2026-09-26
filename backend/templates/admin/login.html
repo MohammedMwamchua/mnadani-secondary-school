@@ -34,6 +34,7 @@
 
     <form action="{{ app_path }}" method="post" id="login-form">
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
 
         <div class="mn-login-field{% if form.username.errors %} mn-login-field--error{% endif %}">
             <label for="{{ form.username.id_for_label }}" class="sr-only">{% trans "Username" %}</label>

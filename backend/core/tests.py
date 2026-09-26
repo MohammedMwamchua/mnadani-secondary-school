@@ -55,6 +55,9 @@ class AdminLoginBruteForceTests(TestCase):
         self.assertEqual(response.status_code, 429)
         self.assertNotIn("_auth_user_id", self.client.session)
 
+    def test_login_page_sends_staff_to_the_dashboard(self):
+        self.assertContains(self.client.get(self.login_url), 'name="next" value="/admin/"')
+
     def test_correct_password_still_works_before_lockout(self):
         for _ in range(3):
             self.attempt("wrong-password")
