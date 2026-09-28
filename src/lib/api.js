@@ -23,6 +23,11 @@ export async function fetchHistoryEvents() {
   return rows.map((e) => ({ id: e.id, mark: e.year, title: e.title, body: e.description, photo: e.photo }));
 }
 
+export async function fetchCampusPhotos() {
+  const rows = await getList("campus-photos");
+  return mapPhotos(rows);
+}
+
 export async function fetchHeadteachers() {
   const rows = await getList("headteachers");
   return rows.map((h) => ({

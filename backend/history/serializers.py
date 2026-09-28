@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from .models import Headteacher, HistoryEvent, NotableTeacher
+from .models import CampusPhoto, Headteacher, HistoryEvent, NotableTeacher
+
+
+class CampusPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CampusPhoto
+        fields = ["id", "image", "caption", "order"]
 
 
 class HistoryEventSerializer(serializers.ModelSerializer):

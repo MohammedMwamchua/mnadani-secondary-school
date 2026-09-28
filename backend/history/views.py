@@ -1,7 +1,17 @@
 from rest_framework import viewsets
 
-from .models import Headteacher, HistoryEvent, NotableTeacher
-from .serializers import HeadteacherSerializer, HistoryEventSerializer, NotableTeacherSerializer
+from .models import CampusPhoto, Headteacher, HistoryEvent, NotableTeacher
+from .serializers import (
+    CampusPhotoSerializer,
+    HeadteacherSerializer,
+    HistoryEventSerializer,
+    NotableTeacherSerializer,
+)
+
+
+class CampusPhotoViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = CampusPhoto.objects.all()
+    serializer_class = CampusPhotoSerializer
 
 
 class HistoryEventViewSet(viewsets.ReadOnlyModelViewSet):

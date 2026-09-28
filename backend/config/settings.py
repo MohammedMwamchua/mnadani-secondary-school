@@ -256,6 +256,7 @@ UNFOLD = {
                     {"title": "Timeline events", "icon": "history_edu", "link": reverse_lazy("admin:history_historyevent_changelist")},
                     {"title": "Former headteachers", "icon": "person", "link": reverse_lazy("admin:history_headteacher_changelist")},
                     {"title": "Notable teachers", "icon": "co_present", "link": reverse_lazy("admin:history_notableteacher_changelist")},
+                    {"title": "Campus photos", "icon": "photo_library", "link": reverse_lazy("admin:history_campusphoto_changelist")},
                 ],
             },
             {

@@ -3,7 +3,7 @@ import { Calendar, Clock, Users, ClipboardCheck, GraduationCap, Sparkles, Camera
 import { C, serif } from "../config/theme";
 import { Card, Section, PageHero, Tag, PhotoAvatar, PlaceholderNote } from "../components/ui";
 import { useFetch } from "../lib/useFetch";
-import { fetchHistoryEvents, fetchHeadteachers, fetchNotableTeachers, fetchGalleryAlbums } from "../lib/api";
+import { fetchHistoryEvents, fetchHeadteachers, fetchNotableTeachers, fetchCampusPhotos } from "../lib/api";
 
 const TIMELINE_ICONS = [ClipboardCheck, Users, GraduationCap, Sparkles];
 
@@ -96,8 +96,8 @@ export default function History() {
   const timeline = useFetch(fetchHistoryEvents);
   const headteachers = useFetch(fetchHeadteachers);
   const notableTeachers = useFetch(fetchNotableTeachers);
-  const campusGallery = useFetch(() => fetchGalleryAlbums("campus"));
-  const campusPhotos = campusGallery.data?.[0]?.photos ?? [];
+  const campusGallery = useFetch(fetchCampusPhotos);
+  const campusPhotos = campusGallery.data ?? [];
 
   const headteacherCount = headteachers.loading ? "…" : String((headteachers.data ?? []).length);
 

@@ -45,6 +45,22 @@ class Headteacher(Orderable):
         super().save(*args, **kwargs)
 
 
+class CampusPhoto(Orderable):
+    image = models.ImageField(upload_to="history/campus/", validators=[validate_image_file])
+    caption = models.CharField(max_length=200, blank=True)
+
+    class Meta(Orderable.Meta):
+        verbose_name_plural = "Campus photos"
+
+    def __str__(self):
+        return self.caption or "Campus photo"
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            shrink_image_field(self.image)
+        super().save(*args, **kwargs)
+
+
 class NotableTeacher(Orderable):
     name = models.CharField(max_length=150)
     subject = models.CharField(max_length=120, blank=True)
